@@ -1,0 +1,233 @@
+### Create account 1
+< {%
+  client.global.clearAll()
+%}
+POST http://localhost:8081/rest/bank-account/create
+Content-Type: application/json
+
+{
+  "accountId": "1",
+  "initialBalance": 500
+}
+
+> {%
+  client.test("Request executed successfully", function () {
+    client.assert(response.status === 201, "Response status is not 201");
+  });
+%}
+
+### Create account 2
+POST http://localhost:8081/rest/bank-account/create
+Content-Type: application/json
+
+{
+  "accountId": "2",
+  "initialBalance": 500
+}
+
+> {%
+  client.test("Request executed successfully", function () {
+    client.assert(response.status === 201, "Response status is not 201");
+  });
+%}
+
+### Withdraw 100 from 2
+PUT http://localhost:8081/rest/atm/withdraw-money
+Content-Type: application/json
+
+{
+  "accountId": "2",
+  "amount": 100
+}
+
+> {%
+  client.test("Request executed successfully", function () {
+    client.assert(response.status === 204, "Response status is not 204");
+  });
+%}
+
+### Deposit 100 to 1
+PUT http://localhost:8081/rest/atm/deposit-money
+Content-Type: application/json
+
+{
+  "accountId": "1",
+  "amount": 100
+}
+
+> {%
+  client.test("Request executed successfully", function () {
+    client.assert(response.status === 204, "Response status is not 204");
+  });
+%}
+
+### Check 1
+GET http://localhost:8081/rest/bank-account/1/current-balance
+
+> {%
+  client.test("Request executed successfully", function () {
+    client.assert(response.status === 200, "Response status is not 200");
+    const type = response.contentType.mimeType;
+    client.assert(type === "application/json", `Expected 'application/json' but received '${type}'`);
+  });
+
+  client.test("Balance is correct", function () {
+    const accountInfo = response.body;
+    const balance = jsonPath(accountInfo, "$.currentBalance");
+    const expected = 500 + 100;
+    client.assert(balance == expected, `Expected balance to be ${expected}, but it was ${balance}`);
+  });
+%}
+
+
+### Check 2
+GET http://localhost:8081/rest/bank-account/2/current-balance
+
+> {%
+  client.test("Request executed successfully", function () {
+    client.assert(response.status === 200, "Response status is not 200");
+    const type = response.contentType.mimeType;
+    client.assert(type === "application/json", `Expected 'application/json' but received '${type}'`);
+  });
+
+  client.test("Balance is correct", function () {
+    const accountInfo = response.body;
+    const balance = jsonPath(accountInfo, "$.currentBalance");
+    const expected = 500 - 100;
+    client.assert(balance == expected, `Expected balance to be ${expected}, but it was ${balance}`);
+  });
+%}
+
+### Transfer money
+PUT http://localhost:8081/rest/money-transfer/execute
+Content-Type: application/json
+
+{
+  "sourceAccountId": "2",
+  "targetAccountId": "1",
+  "amount": 50
+}
+
+> {%
+  client.test("Request executed successfully", function () {
+    client.assert(response.status === 201, "Response status is not 201");
+  });
+
+  const location = response.headers.valueOf("Location");
+  const moneyTransferId = location.substring(location.lastIndexOf("/") + 1);
+  client.global.set("moneyTransferId", moneyTransferId);
+%}
+
+### Check money transfer
+GET http://localhost:8081/rest/money-transfer/{{moneyTransferId}}
+
+> {%
+  client.test("Request executed successfully", function () {
+    client.assert(response.status === 200, "Response status is not 200");
+    const type = response.contentType.mimeType;
+    client.assert(type === "application/json", `Expected 'application/json' but received '${type}'`);
+  });
+
+
+  client.test("Money transfer was successful", function () {
+    const moneyTransferInfo = response.body;
+    const amount = jsonPath(moneyTransferInfo, "$.amount");
+    const status = jsonPath(moneyTransferInfo, "$.status");
+    const moneyTransferId = jsonPath(moneyTransferInfo, "$.moneyTransferId");
+    const sourceAccountId = jsonPath(moneyTransferInfo, "$.sourceAccountId");
+    const targetAccountId = jsonPath(moneyTransferInfo, "$.targetAccountId");
+    const expectedMoneyTransferId = client.global.get("moneyTransferId");
+    client.assert(moneyTransferId == expectedMoneyTransferId, `Expected moneyTransferId to be ${expectedMoneyTransferId}, but it was ${moneyTransferId}`);
+    client.assert(sourceAccountId == 2, `Expected sourceAccountId to be 2, but it was ${sourceAccountId}`);
+    client.assert(targetAccountId == 1, `Expected targetAccountId to be 1, but it was ${targetAccountId}`);
+    client.assert(amount == 50, `Expected amount to be 50, but it was ${amount}`);
+    client.assert(status == "SUCCESS", `Expected status to be SUCCESS, but it was ${status}`);
+  });
+%}
+
+### Check 1
+GET http://localhost:8081/rest/bank-account/1/current-balance
+
+> {%
+  client.test("Request executed successfully", function () {
+    client.assert(response.status === 200, "Response status is not 200");
+    const type = response.contentType.mimeType;
+    client.assert(type === "application/json", `Expected 'application/json' but received '${type}'`);
+  });
+
+  client.test("Balance is correct", function () {
+    const accountInfo = response.body;
+    const balance = jsonPath(accountInfo, "$.currentBalance");
+    const expected = 600 + 50;
+    client.assert(balance == expected, `Expected balance to be ${expected}, but it was ${balance}`);
+  });
+%}
+
+
+### Check 2
+GET http://localhost:8081/rest/bank-account/2/current-balance
+
+> {%
+  client.test("Request executed successfully", function () {
+    client.assert(response.status === 200, "Response status is not 200");
+    const type = response.contentType.mimeType;
+    client.assert(type === "application/json", `Expected 'application/json' but received '${type}'`);
+  });
+
+  client.test("Balance is correct", function () {
+    const accountInfo = response.body;
+    const balance = jsonPath(accountInfo, "$.currentBalance");
+    const expected = 400 - 50;
+    client.assert(balance == expected, `Expected balance to be ${expected}, but it was ${balance}`);
+  });
+%}
+
+### Fail to transfer money
+< {%
+  client.global.clearAll()
+%}
+PUT http://localhost:8081/rest/money-transfer/execute
+Content-Type: application/json
+
+{
+  "sourceAccountId": "2",
+  "targetAccountId": "1",
+  "amount": 500
+}
+
+> {%
+  client.test("Request executed successfully", function () {
+    client.assert(response.status === 201, "Response status is not 201");
+  });
+
+  const location = response.headers.valueOf("Location");
+  const moneyTransferId = location.substring(location.lastIndexOf("/") + 1);
+  client.global.set("moneyTransferId", moneyTransferId);
+%}
+
+### Check money transfer
+GET http://localhost:8081/rest/money-transfer/{{moneyTransferId}}
+
+> {%
+  client.test("Request executed successfully", function () {
+    client.assert(response.status === 200, "Response status is not 200");
+    const type = response.contentType.mimeType;
+    client.assert(type === "application/json", `Expected 'application/json' but received '${type}'`);
+  });
+
+
+  client.test("Money transfer failed", function () {
+    const moneyTransferInfo = response.body;
+    const amount = jsonPath(moneyTransferInfo, "$.amount");
+    const status = jsonPath(moneyTransferInfo, "$.status");
+    const moneyTransferId = jsonPath(moneyTransferInfo, "$.moneyTransferId");
+    const sourceAccountId = jsonPath(moneyTransferInfo, "$.sourceAccountId");
+    const targetAccountId = jsonPath(moneyTransferInfo, "$.targetAccountId");
+    const expectedMoneyTransferId = client.global.get("moneyTransferId");
+    client.assert(moneyTransferId == expectedMoneyTransferId, `Expected moneyTransferId to be ${expectedMoneyTransferId}, but it was ${moneyTransferId}`);
+    client.assert(sourceAccountId == 2, `Expected sourceAccountId to be 2, but it was ${sourceAccountId}`);
+    client.assert(targetAccountId == 1, `Expected targetAccountId to be 1, but it was ${targetAccountId}`);
+    client.assert(amount == 500, `Expected amount to be 500, but it was ${amount}`);
+    client.assert(status == "FAILURE", `Expected status to be FAILURE, but it was ${status}`);
+  });
+%}

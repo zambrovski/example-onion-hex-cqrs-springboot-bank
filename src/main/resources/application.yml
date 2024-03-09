@@ -1,0 +1,23 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: hex-cqrs-springboot-bank
+  jpa:
+    open-in-view: true
+
+springdoc:
+  swagger-ui:
+    use-root-path: true
+    syntax-highlight:
+      activated: true
+    try-it-out-enabled: true
+  packages-to-scan:
+  - io.holixon.example.cqrs.springboot.bank.adapter.in.rest
+
+logging:
+  level:
+    io.holixon.example.cqrs.springboot: DEBUG
+    org.springframework.web.servlet.DispatcherServlet: DEBUG
+
