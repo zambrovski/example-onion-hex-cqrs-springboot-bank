@@ -1,8 +1,8 @@
-# Axon Framework Example
+# Example demonstrating using Onion/Hexagonal/CQRS with Spring Boot
 
 ## Business Context
 
-This application is a small example to demonstrate the usage of Axon Framework in a self-contained
+This application is a small example to demonstrate the usage of SpringBoot in a self-contained
 system constructed following principles of DDD, Clean Architecture and CQRS/ES.
 
 ## Use Cases 
@@ -37,41 +37,17 @@ can't be executed in an atomic way, the money is first reserved on the first acc
 second account and then confirmed for the first account. On any errors, the money transfer is cancelled
 and the reservation on the source account is reset.
 
-A customer can query information about money transfers identifying the latter by the unique id or by quering
+A customer can query information about money transfers identifying the latter by the unique id or by querying
 all money transfers in which an account was involved as a source or as a target.
 
 ### UC-005 Retrieve bank account information
 
 A customer can retrieve account information. To run this use case, he/she needs the account id.
 
-## Overall CQRS idea
-
-![Component Diagram](./documentation/context-mapper/cqrs.svg)
-
-## Component diagram
-
-![Component Diagram](./documentation/context-mapper/components.svg)
-
-## Domain Model (command side)
-
-![Class Diagram](./documentation/context-mapper/class.svg)
-
-## ADRs (Architecture Decision Records)
-
-- [Clean Architecture](./documentation/adrs/001-clean-architecture.md)
-- [Ubiquitous Language](./documentation/adrs/002-ubiquituos-language.md)
-- [CQRS](./documentation/adrs/003-cqrs.md)
-- [Event Sourcing](./documentation/adrs/004-event-sourcing.md)
-- [Explicit Messaging](./documentation/adrs/005-command-event-query-bus.md)
-- [In and Out Ports](./documentation/adrs/006-in-and-out-ports.md)
-
 ## Running Example
 
-The example can be started by running the `HexagonalAxonBankApplication`. It supports
-two spring profiles (configured via `application.yml`). The `mem` profile 
-works with an in-memory Event Store. If `no-mem` profile is active, the 
-application requires an Axon Server, which can be started by starting 
-docker compose with the corresponding `docker-compose.yaml` file. 
-
+The example can be started by running the `HexagonalSpringBootCQRSHoliBankApplication`.
 To interact with application, use Swagger UI available via http://localhost:8081/swagger-ui/index.html
-It provides several use cases switchable via group selection on the top of the UI. 
+It provides several use cases switchable via group selection on the top of the UI.
+
+You can also run `demo.http` script using Intellij IDEA.
