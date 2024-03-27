@@ -2,9 +2,9 @@ package io.holixon.example.cqrs.springboot.bank.application.usecase
 
 import io.holixon.example.cqrs.springboot.bank.application.port.`in`.RetrieveBankAccountInformationInPort
 import io.holixon.example.cqrs.springboot.bank.application.port.out.query.BankAccountCurrentBalanceRepository
-import io.holixon.example.cqrs.springboot.bank.domain.query.BankAccountCurrentBalance
-import io.holixon.example.cqrs.springboot.bank.domain.type.AccountId
-import io.holixon.example.cqrs.springboot.bank.domain.type.CurrentBalance
+import io.holixon.example.cqrs.springboot.bank.domain.query.model.BankAccountCurrentBalance
+import io.holixon.example.cqrs.springboot.bank.domain.type.account.AccountId
+import io.holixon.example.cqrs.springboot.bank.domain.type.account.CurrentBalance
 import java.util.*
 import java.util.concurrent.CompletableFuture
 

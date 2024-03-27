@@ -1,15 +1,15 @@
 package io.holixon.example.cqrs.springboot.bank.infrastructure
 
-import io.holixon.example.cqrs.springboot.bank.application.port.out.MoneyTransferIdGenerator
+import io.holixon.example.cqrs.springboot.bank.application.port.out.command.MoneyTransferIdGenerator
 import io.holixon.example.cqrs.springboot.bank.application.port.out.command.BankAccountAggregateRepository
 import io.holixon.example.cqrs.springboot.bank.application.port.out.command.MoneyTransferAggregateRepository
+import io.holixon.example.cqrs.springboot.bank.application.port.out.event.EventPublisherOutPort
 import io.holixon.example.cqrs.springboot.bank.application.port.out.query.BankAccountCurrentBalanceRepository
 import io.holixon.example.cqrs.springboot.bank.application.port.out.query.MoneyTransferSummaryRepository
 import io.holixon.example.cqrs.springboot.bank.application.projector.BankAccountCurrentBalanceProjector
 import io.holixon.example.cqrs.springboot.bank.application.projector.MoneyTransferSummaryProjector
 import io.holixon.example.cqrs.springboot.bank.application.usecase.*
 import io.holixon.example.cqrs.springboot.bank.domain.type.moneytransfer.MoneyTransferId
-import org.springframework.context.ApplicationEventPublisher
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Configuration
@@ -23,14 +23,14 @@ class BankContextConfiguration {
   fun randomGenerator() = MoneyTransferIdGenerator { MoneyTransferId.of(UUID.randomUUID().toString()) }
 
   @Bean
-  fun createBankAccountUseCase(bankAccountRepository: BankAccountAggregateRepository, applicationEventPublisher: ApplicationEventPublisher) =
+  fun createBankAccountUseCase(bankAccountRepository: BankAccountAggregateRepository, applicationEventPublisher: EventPublisherOutPort) =
     CreateBankAccountUseCase(
       bankAccountRepository = bankAccountRepository,
       applicationEventPublisher = applicationEventPublisher
     )
 
   @Bean
-  fun depositMoneyUseCase(bankAccountRepository: BankAccountAggregateRepository, applicationEventPublisher: ApplicationEventPublisher) =
+  fun depositMoneyUseCase(bankAccountRepository: BankAccountAggregateRepository, applicationEventPublisher: EventPublisherOutPort) =
     DepositMoneyUseCase(
       bankAccountRepository = bankAccountRepository,
       applicationEventPublisher = applicationEventPublisher
@@ -41,7 +41,7 @@ class BankContextConfiguration {
     RetrieveAccountInformationUseCase(bankAccountCurrentBalanceRepository = bankAccountCurrentBalanceRepository)
 
   @Bean
-  fun withdrawMoneyUseCase(bankAccountAggregateRepository: BankAccountAggregateRepository, applicationEventPublisher: ApplicationEventPublisher) = WithdrawMoneyUseCase(
+  fun withdrawMoneyUseCase(bankAccountAggregateRepository: BankAccountAggregateRepository, applicationEventPublisher: EventPublisherOutPort) = WithdrawMoneyUseCase(
     bankAccountRepository = bankAccountAggregateRepository,
     applicationEventPublisher = applicationEventPublisher
   )
@@ -49,19 +49,11 @@ class BankContextConfiguration {
 
   @Bean
   fun transferMoneyUseCase(
-    moneyTransferProcessManager: MoneyTransferProcessManager
-  ) = TransferMoneyUseCase(
-    moneyTransferProcessManager = moneyTransferProcessManager
-  )
-
-  @Bean
-  fun moneyTransferProcessManager(
     bankAccountAggregateRepository: BankAccountAggregateRepository,
     moneyTransferAggregateRepository: MoneyTransferAggregateRepository,
     moneyTransferIdGenerator: MoneyTransferIdGenerator,
-    applicationEventPublisher: ApplicationEventPublisher
-
-  ) = MoneyTransferProcessManager(
+    applicationEventPublisher: EventPublisherOutPort
+  ) = TransferMoneyUseCase(
     moneyTransferIdGenerator = moneyTransferIdGenerator,
     bankAccountRepository = bankAccountAggregateRepository,
     moneyTransferAggregateRepository = moneyTransferAggregateRepository,

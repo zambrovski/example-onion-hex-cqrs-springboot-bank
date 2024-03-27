@@ -1,30 +1,33 @@
 package io.holixon.example.cqrs.springboot.bank.domain.command.model
 
-import io.holixon.example.cqrs.springboot.bank.domain.command.api.CreateBankAccountCommand
-import io.holixon.example.cqrs.springboot.bank.domain.command.api.DepositMoneyCommand
-import io.holixon.example.cqrs.springboot.bank.domain.command.api.WithdrawMoneyCommand
+import io.holixon.example.cqrs.springboot.bank.domain.command.api.account.CreateBankAccountCommand
+import io.holixon.example.cqrs.springboot.bank.domain.command.api.atm.DepositMoneyCommand
+import io.holixon.example.cqrs.springboot.bank.domain.command.api.atm.WithdrawMoneyCommand
 import io.holixon.example.cqrs.springboot.bank.domain.command.api.moneytransfer.CancelMoneyTransferCommand
 import io.holixon.example.cqrs.springboot.bank.domain.command.api.moneytransfer.CompleteMoneyTransferCommand
 import io.holixon.example.cqrs.springboot.bank.domain.command.api.moneytransfer.ReceiveMoneyTransferCommand
 import io.holixon.example.cqrs.springboot.bank.domain.command.api.moneytransfer.RequestMoneyTransferCommand
-import io.holixon.example.cqrs.springboot.bank.domain.event.BankAccountCreatedEvent
-import io.holixon.example.cqrs.springboot.bank.domain.event.MoneyDepositedEvent
-import io.holixon.example.cqrs.springboot.bank.domain.event.MoneyWithdrawnEvent
+import io.holixon.example.cqrs.springboot.bank.domain.command.model.account.BankAccount
+import io.holixon.example.cqrs.springboot.bank.domain.event.account.BankAccountCreatedEvent
+import io.holixon.example.cqrs.springboot.bank.domain.event.atm.MoneyDepositedEvent
+import io.holixon.example.cqrs.springboot.bank.domain.event.atm.MoneyWithdrawnEvent
 import io.holixon.example.cqrs.springboot.bank.domain.event.moneytransfer.MoneyTransferCancelledEvent
 import io.holixon.example.cqrs.springboot.bank.domain.event.moneytransfer.MoneyTransferCompletedEvent
 import io.holixon.example.cqrs.springboot.bank.domain.event.moneytransfer.MoneyTransferReceivedEvent
 import io.holixon.example.cqrs.springboot.bank.domain.event.moneytransfer.MoneyTransferRequestedEvent
-import io.holixon.example.cqrs.springboot.bank.domain.type.AccountId
-import io.holixon.example.cqrs.springboot.bank.domain.type.InsufficientBalance
-import io.holixon.example.cqrs.springboot.bank.domain.type.MaximumBalanceExceeded
+import io.holixon.example.cqrs.springboot.bank.domain.type.account.AccountId
+import io.holixon.example.cqrs.springboot.bank.domain.type.account.InsufficientBalance
+import io.holixon.example.cqrs.springboot.bank.domain.type.account.MaximumBalanceExceeded
 import org.jmolecules.architecture.cqrs.CommandHandler
+import org.jmolecules.ddd.annotation.Entity
 import org.jmolecules.ddd.annotation.Identity
 import org.jmolecules.event.annotation.DomainEventPublisher
 
-class BankAccountAggregate private constructor(
+@Entity
+class BankAccountAggregate internal constructor(
   @Identity
   internal val accountId: AccountId,
-  private val bankAccount: BankAccount
+  internal val bankAccount: BankAccount
 ) {
 
   companion object {

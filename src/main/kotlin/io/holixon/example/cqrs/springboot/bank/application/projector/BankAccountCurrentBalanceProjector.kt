@@ -1,10 +1,10 @@
 package io.holixon.example.cqrs.springboot.bank.application.projector
 
 import io.holixon.example.cqrs.springboot.bank.application.port.out.query.BankAccountCurrentBalanceRepository
-import io.holixon.example.cqrs.springboot.bank.domain.event.BankAccountCreatedEvent
-import io.holixon.example.cqrs.springboot.bank.domain.event.MoneyDepositedEvent
-import io.holixon.example.cqrs.springboot.bank.domain.event.MoneyWithdrawnEvent
-import io.holixon.example.cqrs.springboot.bank.domain.query.BankAccountCurrentBalance
+import io.holixon.example.cqrs.springboot.bank.domain.event.account.BankAccountCreatedEvent
+import io.holixon.example.cqrs.springboot.bank.domain.event.atm.MoneyDepositedEvent
+import io.holixon.example.cqrs.springboot.bank.domain.event.atm.MoneyWithdrawnEvent
+import io.holixon.example.cqrs.springboot.bank.domain.query.model.BankAccountCurrentBalance
 import io.holixon.example.cqrs.springboot.bank.domain.event.moneytransfer.MoneyTransferredEvent
 import org.jmolecules.event.annotation.DomainEventHandler
 import org.springframework.context.event.EventListener

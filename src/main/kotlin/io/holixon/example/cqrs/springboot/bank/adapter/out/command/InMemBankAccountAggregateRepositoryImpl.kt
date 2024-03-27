@@ -2,7 +2,7 @@ package io.holixon.example.cqrs.springboot.bank.adapter.out.command
 
 import io.holixon.example.cqrs.springboot.bank.application.port.out.command.BankAccountAggregateRepository
 import io.holixon.example.cqrs.springboot.bank.domain.command.model.BankAccountAggregate
-import io.holixon.example.cqrs.springboot.bank.domain.type.AccountId
+import io.holixon.example.cqrs.springboot.bank.domain.type.account.AccountId
 
 class InMemBankAccountAggregateRepositoryImpl(
   private val storage: MutableMap<AccountId, BankAccountAggregate> = mutableMapOf()

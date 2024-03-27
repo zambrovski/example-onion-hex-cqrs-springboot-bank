@@ -1,9 +1,9 @@
 package io.holixon.example.cqrs.springboot.bank.application.port.`in`
 
-import io.holixon.example.cqrs.springboot.bank.domain.type.AccountId
-import io.holixon.example.cqrs.springboot.bank.domain.type.Amount
-import io.holixon.example.cqrs.springboot.bank.domain.type.InsufficientBalance
-import io.holixon.example.cqrs.springboot.bank.domain.type.MaximumBalanceExceeded
+import io.holixon.example.cqrs.springboot.bank.domain.type.account.AccountId
+import io.holixon.example.cqrs.springboot.bank.domain.type.account.Amount
+import io.holixon.example.cqrs.springboot.bank.domain.type.account.InsufficientBalance
+import io.holixon.example.cqrs.springboot.bank.domain.type.account.MaximumBalanceExceeded
 import io.holixon.example.cqrs.springboot.bank.domain.type.moneytransfer.MoneyTransferId
 import java.util.concurrent.CompletableFuture
 

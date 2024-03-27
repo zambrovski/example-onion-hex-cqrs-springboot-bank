@@ -1,7 +1,7 @@
 package io.holixon.example.cqrs.springboot.bank.application.port.`in`
 
-import io.holixon.example.cqrs.springboot.bank.domain.type.AccountId
-import io.holixon.example.cqrs.springboot.bank.domain.type.CurrentBalance
+import io.holixon.example.cqrs.springboot.bank.domain.type.account.AccountId
+import io.holixon.example.cqrs.springboot.bank.domain.type.account.CurrentBalance
 import java.util.*
 import java.util.concurrent.CompletableFuture
 

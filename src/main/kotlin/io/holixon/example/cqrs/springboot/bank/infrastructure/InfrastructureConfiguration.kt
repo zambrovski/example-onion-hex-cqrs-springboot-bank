@@ -2,8 +2,8 @@
 
 package io.holixon.example.cqrs.springboot.bank.infrastructure
 
-import io.holixon.example.cqrs.springboot.bank.adapter.`in`.RestConfiguration
-import io.holixon.example.cqrs.springboot.bank.adapter.out.RepositoryConfiguration
+import io.holixon.example.cqrs.springboot.bank.adapter.`in`.InAdapterConfiguration
+import io.holixon.example.cqrs.springboot.bank.adapter.out.OutAdapterConfiguration
 import org.jmolecules.architecture.onion.classical.InfrastructureRing
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -15,8 +15,8 @@ import org.springframework.core.task.SimpleAsyncTaskExecutor
 
 @Configuration
 @Import(
-  RestConfiguration::class,
-  RepositoryConfiguration::class
+  InAdapterConfiguration::class,
+  OutAdapterConfiguration::class
 )
 class InfrastructureConfiguration {
 

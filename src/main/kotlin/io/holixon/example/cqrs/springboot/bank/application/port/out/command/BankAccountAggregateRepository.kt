@@ -1,7 +1,7 @@
 package io.holixon.example.cqrs.springboot.bank.application.port.out.command
 
 import io.holixon.example.cqrs.springboot.bank.domain.command.model.BankAccountAggregate
-import io.holixon.example.cqrs.springboot.bank.domain.type.AccountId
+import io.holixon.example.cqrs.springboot.bank.domain.type.account.AccountId
 import org.jmolecules.ddd.annotation.Repository
 
 /**

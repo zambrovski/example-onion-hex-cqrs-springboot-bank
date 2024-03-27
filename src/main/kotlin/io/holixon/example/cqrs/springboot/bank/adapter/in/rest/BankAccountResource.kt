@@ -2,9 +2,9 @@ package io.holixon.example.cqrs.springboot.bank.adapter.`in`.rest
 
 import io.holixon.example.cqrs.springboot.bank.application.port.`in`.CreateBankAccountInPort
 import io.holixon.example.cqrs.springboot.bank.application.port.`in`.RetrieveBankAccountInformationInPort
-import io.holixon.example.cqrs.springboot.bank.domain.type.AccountId
-import io.holixon.example.cqrs.springboot.bank.domain.type.Balance
-import io.holixon.example.cqrs.springboot.bank.domain.type.CurrentBalance
+import io.holixon.example.cqrs.springboot.bank.domain.type.account.AccountId
+import io.holixon.example.cqrs.springboot.bank.domain.type.account.Balance
+import io.holixon.example.cqrs.springboot.bank.domain.type.account.CurrentBalance
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 import org.jmolecules.ddd.annotation.ValueObject

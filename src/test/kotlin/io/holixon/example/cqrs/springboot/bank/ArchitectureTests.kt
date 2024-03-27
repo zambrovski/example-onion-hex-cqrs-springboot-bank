@@ -25,7 +25,7 @@ internal class ArchitectureTests {
   }
 
   @ArchTest
-  fun `validates cqrs-es axon framework rules`(classes: JavaClasses) {
+  fun `validates cqrs-es rules`(classes: JavaClasses) {
     ExtendedArchitectureRules.ensureAxonCqrsEs(setOf("JMolecules")).check(classes)
   }
 

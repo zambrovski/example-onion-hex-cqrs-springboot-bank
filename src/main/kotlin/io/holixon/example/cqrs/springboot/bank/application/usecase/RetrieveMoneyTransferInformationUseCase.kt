@@ -2,8 +2,10 @@ package io.holixon.example.cqrs.springboot.bank.application.usecase
 
 import io.holixon.example.cqrs.springboot.bank.application.port.`in`.RetrieveMoneyTransferInformationInPort
 import io.holixon.example.cqrs.springboot.bank.application.port.out.query.MoneyTransferSummaryRepository
-import io.holixon.example.cqrs.springboot.bank.domain.query.BankAccountMoneyTransfer
-import io.holixon.example.cqrs.springboot.bank.domain.type.AccountId
+import io.holixon.example.cqrs.springboot.bank.domain.query.api.MoneyTransferSummaries
+import io.holixon.example.cqrs.springboot.bank.domain.query.api.MoneyTransferSummary
+import io.holixon.example.cqrs.springboot.bank.domain.query.model.BankAccountMoneyTransfer
+import io.holixon.example.cqrs.springboot.bank.domain.type.account.AccountId
 import io.holixon.example.cqrs.springboot.bank.domain.type.moneytransfer.*
 import java.util.*
 import java.util.concurrent.CompletableFuture

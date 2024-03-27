@@ -1,10 +1,8 @@
 package io.holixon.example.cqrs.springboot.bank.domain.command.model
 
-import io.holixon.example.cqrs.springboot.bank.domain.event.BankAccountCreatedEvent
-import io.holixon.example.cqrs.springboot.bank.domain.type.Amount
-import io.holixon.example.cqrs.springboot.bank.domain.type.Balance
-import io.holixon.example.cqrs.springboot.bank.domain.type.InsufficientBalance
-import io.holixon.example.cqrs.springboot.bank.domain.type.MaximumBalanceExceeded
+import io.holixon.example.cqrs.springboot.bank.domain.command.model.account.BankAccount
+import io.holixon.example.cqrs.springboot.bank.domain.event.account.BankAccountCreatedEvent
+import io.holixon.example.cqrs.springboot.bank.domain.type.account.*
 import io.holixon.example.cqrs.springboot.bank.domain.type.moneytransfer.MoneyTransferId
 import io.holixon.example.cqrs.springboot.bank.domain.type.moneytransfer.MoneyTransferNotFound
 import io.holixon.example.cqrs.springboot.bank.domain.type.moneytransfer.RejectionReason
@@ -14,8 +12,8 @@ import org.junit.jupiter.api.assertThrows
 
 internal class BankAccountTest {
 
-  private val accountId = io.holixon.example.cqrs.springboot.bank.domain.type.AccountId.of("4711")
-  private val otherAccountId = io.holixon.example.cqrs.springboot.bank.domain.type.AccountId.of("4712")
+  private val accountId = AccountId.of("4711")
+  private val otherAccountId = AccountId.of("4712")
   private val tooLowInitialBalance = Balance.of(-10)
   private val validInitialBalance = Balance.of(17)
   private val tooHighInitialBalance = Balance.of(1234)

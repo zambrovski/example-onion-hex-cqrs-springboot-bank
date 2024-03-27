@@ -1,7 +1,7 @@
 package io.holixon.example.cqrs.springboot.bank.adapter.out.command
 
 import io.holixon.example.cqrs.springboot.bank.application.port.out.command.MoneyTransferAggregateRepository
-import io.holixon.example.cqrs.springboot.bank.domain.command.model.moneytransfer.MoneyTransferAggregate
+import io.holixon.example.cqrs.springboot.bank.domain.command.model.MoneyTransferAggregate
 import io.holixon.example.cqrs.springboot.bank.domain.type.moneytransfer.MoneyTransferId
 
 class InMemMoneyTransferAggregateRepositoryImpl(

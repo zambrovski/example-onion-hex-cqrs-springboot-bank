@@ -1,7 +1,7 @@
 package io.holixon.example.cqrs.springboot.bank.domain.command.api.moneytransfer
 
-import io.holixon.example.cqrs.springboot.bank.domain.type.AccountId
-import io.holixon.example.cqrs.springboot.bank.domain.type.Amount
+import io.holixon.example.cqrs.springboot.bank.domain.type.account.AccountId
+import io.holixon.example.cqrs.springboot.bank.domain.type.account.Amount
 import io.holixon.example.cqrs.springboot.bank.domain.type.moneytransfer.MoneyTransferId
 import org.jmolecules.architecture.cqrs.Command
 import org.jmolecules.ddd.annotation.Association
@@ -12,9 +12,9 @@ import org.jmolecules.ddd.annotation.Association
  */
 @Command(namespace = "springboot.bank", name = "RequestMoneyTransferCommand")
 data class RequestMoneyTransferCommand(
-  @Association
+        @Association
   val sourceAccountId: AccountId,
-  val targetAccountId: AccountId,
-  val amount: Amount,
-  val moneyTransferId: MoneyTransferId
+        val targetAccountId: AccountId,
+        val amount: Amount,
+        val moneyTransferId: MoneyTransferId
 )

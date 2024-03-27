@@ -2,12 +2,13 @@ package io.holixon.example.cqrs.springboot.bank.application.usecase
 
 import io.holixon.example.cqrs.springboot.bank.application.port.`in`.DepositMoneyInPort
 import io.holixon.example.cqrs.springboot.bank.application.port.out.command.BankAccountAggregateRepository
+import io.holixon.example.cqrs.springboot.bank.application.port.out.event.EventPublisherOutPort
+import io.holixon.example.cqrs.springboot.bank.domain.command.api.atm.DepositMoneyCommand
 import io.holixon.example.cqrs.springboot.bank.domain.command.model.BankAccountAggregate
-import io.holixon.example.cqrs.springboot.bank.domain.type.AccountId
-import io.holixon.example.cqrs.springboot.bank.domain.type.Amount
-import io.holixon.example.cqrs.springboot.bank.domain.type.MaximumBalanceExceeded
+import io.holixon.example.cqrs.springboot.bank.domain.type.account.AccountId
+import io.holixon.example.cqrs.springboot.bank.domain.type.account.Amount
+import io.holixon.example.cqrs.springboot.bank.domain.type.account.MaximumBalanceExceeded
 import org.jmolecules.architecture.cqrs.CommandDispatcher
-import org.springframework.context.ApplicationEventPublisher
 import java.util.concurrent.CompletableFuture
 
 /**
@@ -15,7 +16,7 @@ import java.util.concurrent.CompletableFuture
  */
 class DepositMoneyUseCase(
   private val bankAccountRepository: BankAccountAggregateRepository,
-  private val applicationEventPublisher: ApplicationEventPublisher
+  private val applicationEventPublisher: EventPublisherOutPort
 ) : DepositMoneyInPort {
 
   /**
@@ -32,7 +33,7 @@ class DepositMoneyUseCase(
 
     // perform
     val event = bankAccount.handle(
-      io.holixon.example.cqrs.springboot.bank.domain.command.api.DepositMoneyCommand(
+      DepositMoneyCommand(
         accountId,
         amount
       )

@@ -1,10 +1,10 @@
 package io.holixon.example.cqrs.springboot.bank.application.port.`in`
 
-import io.holixon.example.cqrs.springboot.bank.domain.type.AccountId
+import io.holixon.example.cqrs.springboot.bank.domain.type.account.AccountId
 import io.holixon.example.cqrs.springboot.bank.domain.type.moneytransfer.MoneyTransferId
 import io.holixon.example.cqrs.springboot.bank.domain.type.moneytransfer.MoneyTransferNotFound
-import io.holixon.example.cqrs.springboot.bank.domain.type.moneytransfer.MoneyTransferSummaries
-import io.holixon.example.cqrs.springboot.bank.domain.type.moneytransfer.MoneyTransferSummary
+import io.holixon.example.cqrs.springboot.bank.domain.query.api.MoneyTransferSummaries
+import io.holixon.example.cqrs.springboot.bank.domain.query.api.MoneyTransferSummary
 import java.util.*
 import java.util.concurrent.CompletableFuture
 

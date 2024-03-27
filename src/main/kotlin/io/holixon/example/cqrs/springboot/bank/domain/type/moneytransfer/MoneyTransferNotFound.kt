@@ -1,6 +1,6 @@
 package io.holixon.example.cqrs.springboot.bank.domain.type.moneytransfer
 
-import io.holixon.example.cqrs.springboot.bank.domain.type.AccountId
+import io.holixon.example.cqrs.springboot.bank.domain.type.account.AccountId
 
 class MoneyTransferNotFound(
   val accountId: AccountId,

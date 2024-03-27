@@ -2,13 +2,14 @@ package io.holixon.example.cqrs.springboot.bank.application.usecase
 
 import io.holixon.example.cqrs.springboot.bank.application.port.`in`.CreateBankAccountInPort
 import io.holixon.example.cqrs.springboot.bank.application.port.out.command.BankAccountAggregateRepository
+import io.holixon.example.cqrs.springboot.bank.application.port.out.event.EventPublisherOutPort
+import io.holixon.example.cqrs.springboot.bank.domain.command.api.account.CreateBankAccountCommand
 import io.holixon.example.cqrs.springboot.bank.domain.command.model.BankAccountAggregate
-import io.holixon.example.cqrs.springboot.bank.domain.type.AccountId
-import io.holixon.example.cqrs.springboot.bank.domain.type.Balance
-import io.holixon.example.cqrs.springboot.bank.domain.type.InsufficientBalance
-import io.holixon.example.cqrs.springboot.bank.domain.type.MaximumBalanceExceeded
+import io.holixon.example.cqrs.springboot.bank.domain.type.account.AccountId
+import io.holixon.example.cqrs.springboot.bank.domain.type.account.Balance
+import io.holixon.example.cqrs.springboot.bank.domain.type.account.InsufficientBalance
+import io.holixon.example.cqrs.springboot.bank.domain.type.account.MaximumBalanceExceeded
 import org.jmolecules.architecture.cqrs.CommandDispatcher
-import org.springframework.context.ApplicationEventPublisher
 import java.util.concurrent.CompletableFuture
 
 /**
@@ -16,7 +17,7 @@ import java.util.concurrent.CompletableFuture
  */
 class CreateBankAccountUseCase(
   private val bankAccountRepository: BankAccountAggregateRepository,
-  private val applicationEventPublisher: ApplicationEventPublisher
+  private val applicationEventPublisher: EventPublisherOutPort
 ) : CreateBankAccountInPort {
 
   /**
@@ -30,7 +31,7 @@ class CreateBankAccountUseCase(
 
     // create
     val (bankAccount, event) = BankAccountAggregate.handle(
-      io.holixon.example.cqrs.springboot.bank.domain.command.api.CreateBankAccountCommand(
+      CreateBankAccountCommand(
         accountId = accountId,
         initialBalance = initialBalance
       )

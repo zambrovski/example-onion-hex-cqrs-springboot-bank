@@ -3,11 +3,11 @@ package io.holixon.example.cqrs.springboot.bank.adapter.`in`.rest
 import io.holixon.example.cqrs.springboot.bank.adapter.`in`.rest.MoneyTransferResource.MoneyTransferStatusDto.*
 import io.holixon.example.cqrs.springboot.bank.application.port.`in`.RetrieveMoneyTransferInformationInPort
 import io.holixon.example.cqrs.springboot.bank.application.port.`in`.TransferMoneyInPort
-import io.holixon.example.cqrs.springboot.bank.domain.type.AccountId
-import io.holixon.example.cqrs.springboot.bank.domain.type.Amount
+import io.holixon.example.cqrs.springboot.bank.domain.type.account.AccountId
+import io.holixon.example.cqrs.springboot.bank.domain.type.account.Amount
 import io.holixon.example.cqrs.springboot.bank.domain.type.moneytransfer.MoneyTransferId
 import io.holixon.example.cqrs.springboot.bank.domain.type.moneytransfer.MoneyTransferStatus
-import io.holixon.example.cqrs.springboot.bank.domain.type.moneytransfer.MoneyTransferSummary
+import io.holixon.example.cqrs.springboot.bank.domain.query.api.MoneyTransferSummary
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 import org.jmolecules.ddd.annotation.ValueObject

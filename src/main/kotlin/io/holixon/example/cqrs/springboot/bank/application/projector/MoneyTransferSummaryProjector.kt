@@ -5,7 +5,7 @@ import io.holixon.example.cqrs.springboot.bank.domain.event.moneytransfer.MoneyT
 import io.holixon.example.cqrs.springboot.bank.domain.event.moneytransfer.MoneyTransferCompletedEvent
 import io.holixon.example.cqrs.springboot.bank.domain.event.moneytransfer.MoneyTransferFailedEvent
 import io.holixon.example.cqrs.springboot.bank.domain.event.moneytransfer.MoneyTransferRequestedEvent
-import io.holixon.example.cqrs.springboot.bank.domain.query.BankAccountMoneyTransfer
+import io.holixon.example.cqrs.springboot.bank.domain.query.model.BankAccountMoneyTransfer
 import org.jmolecules.event.annotation.DomainEventHandler
 import org.springframework.context.event.EventListener
 

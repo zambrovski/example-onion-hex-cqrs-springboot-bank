@@ -1,8 +1,8 @@
 package io.holixon.example.cqrs.springboot.bank.application.port.out.query
 
-import io.holixon.example.cqrs.springboot.bank.domain.query.BankAccountCurrentBalance
+import io.holixon.example.cqrs.springboot.bank.domain.query.model.BankAccountCurrentBalance
 import org.jmolecules.ddd.annotation.Repository
-import io.holixon.example.cqrs.springboot.bank.domain.type.AccountId
+import io.holixon.example.cqrs.springboot.bank.domain.type.account.AccountId
 import java.util.*
 
 /**
